@@ -32,3 +32,5 @@
 *.tdo
 .DS_Store
 build/
+*.pyc
+*.log

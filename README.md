@@ -28,7 +28,7 @@ The lattices can be related to the original audio files via the file "train.db.g
 Bbase: baseline full lattice (?)
 
 
-Bdc: full lattice
+Bdc: full lattice (152251 lattices)
 
     19960510_NPR_ATC#Ailene_Leblanc@0001.dc
     1 2 <s> confirm=0

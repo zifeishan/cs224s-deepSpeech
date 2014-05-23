@@ -1,6 +1,6 @@
 #! /usr/bin/python
 
-import os, sys
+import sys
 
 def ElemMatch(e1, e2):
   return e1 == e2

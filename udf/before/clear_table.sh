@@ -2,3 +2,6 @@
 psql -d $DBNAME -c "
   TRUNCATE $1 CASCADE;
 "
+psql -d $DBNAME -c "
+  ANALYZE $1;
+"

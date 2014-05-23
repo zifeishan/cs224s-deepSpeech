@@ -30,3 +30,18 @@ e.g.
      19960510aCNN_EPN#Byron_Miranda@0008 |        18924 | <s> TIME
      19960510aCNN_EPN#Byron_Miranda@0008 |        18918 | <s> TIME
      19960510aCNN_EPN#Byron_Miranda@0008 |        18926 | <s> TIME
+
+
+# Examine 2gram 
+    select array_agg(c.word order by c.candidate_id), min(c.candidate_id) as cid, min(ngram)
+    from f_cand_2gram f, candidate c
+     where c.lattice_id = f.lattice_id 
+     and c.candidate_id = f.candidate_id
+     group by c.lattice_id
+     limit 10;
+
+    select c.*, ngram
+    from f_cand_2gram f, candidate c
+     where c.lattice_id = f.lattice_id 
+     and c.candidate_id = f.candidate_id
+     limit 10;

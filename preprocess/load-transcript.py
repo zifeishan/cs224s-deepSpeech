@@ -90,3 +90,4 @@ sqlcmd = '''INSERT INTO transcript_array
 ''' + dbname
 
 os.system(sqlcmd)
+os.system('''psql -c "ANALYZE transcript_array;" '''+dbname)

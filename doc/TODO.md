@@ -1,10 +1,15 @@
 TODO
 ====
 
-distant supervision?
+- Error analysis
+- Optimize for PRECISION rather than recall
 
-- regenerate candidates with cand_words (have to)
-- OR rewrite cand_match.py
+- Obtain Google 3/4/5gram
+
+- distant supervision?
+
+X regenerate candidates with cand_words (have to)
+X OR rewrite cand_match.py
 
 Links
 

@@ -15,7 +15,8 @@ else
 fi
 
 cd $DEEPDIVE_HOME
-$DEEPDIVE_HOME/sbt/sbt "run -c $APP_HOME/application.conf"
+# $DEEPDIVE_HOME/sbt/sbt "run -c $APP_HOME/application.conf"
+deepdive -c $APP_HOME/application.conf
 
 # # remove the results file for evaluation
 # rm $EL_RESULTS_FILE

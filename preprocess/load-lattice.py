@@ -76,11 +76,11 @@ while True:
   fout.close()
 
 os.system('''psql -c """DROP TABLE IF EXISTS err; CREATE TABLE err (cmdtime timestamp with time zone, relname text, filename text, linenum integer, bytenum integer, errmsg text, rawdata text, rawbytes bytea);""" '''+dbname)
-os.system('''psql -c "TRUNCATE candidate CASCADE;" '''+dbname)
+os.system('''psql -c "TRUNCATE candidate_all CASCADE;" '''+dbname)
 
 print 'Loading from', outfile
-sqlcmd = '''sed \'s/\\\\/\\\\\\\\/g\' '''+outfile+''' | psql -c "COPY candidate(lattice_id,source,starts,ends,word,confirm, candidate_id) FROM STDIN LOG ERRORS INTO err SEGMENT REJECT LIMIT 1000 ROWS;" '''+ dbname
+sqlcmd = '''sed \'s/\\\\/\\\\\\\\/g\' '''+outfile+''' | psql -c "COPY candidate_all(lattice_id,source,starts,ends,word,confirm, candidate_id) FROM STDIN LOG ERRORS INTO err SEGMENT REJECT LIMIT 1000 ROWS;" '''+ dbname
 print sqlcmd
 os.system(sqlcmd)
 
-os.system('''psql -c "ANALYZE candidate;" '''+dbname)
+os.system('''psql -c "ANALYZE candidate_all;" '''+dbname)

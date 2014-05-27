@@ -89,7 +89,7 @@ if __name__ == "__main__":
   else:
     print 'Usage:',sys.argv[0],'<path1> <path2> (words split by \\n)'
 
-    print 'Tetsing:'
+    print 'Testing:'
     arr1 = [0,1,3,2]
     arr2 = [5,1,2,3]
     # arr1 = 'I want to go to seattle'.split(' ')

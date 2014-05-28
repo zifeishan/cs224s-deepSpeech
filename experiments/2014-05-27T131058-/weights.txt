@@ -1,0 +1,26 @@
+ id | initial_value | is_fixed |        description        |        weight        
+----+---------------+----------+---------------------------+----------------------
+ 20 |            10 | t        | rule_startend-            |                   10
+  1 |             0 | f        | rule_confirm-1            |    0.376755014770255
+ 19 |             0 | f        | rule_cand_1gram_nonexist- |    0.348078875584076
+ 14 |             0 | f        | rule_cand_2gram-9         |    0.283705986498785
+  8 |             0 | f        | rule_cand_1gram-6         |    0.237802388442615
+ 12 |             0 | f        | rule_cand_2gram-8         |    0.167907799195663
+  5 |             0 | f        | rule_cand_1gram-9         |    0.162383836793098
+  3 |             0 | f        | rule_cand_1gram-8         |    0.127629270003441
+  7 |             0 | f        | rule_cand_1gram-10        |    0.127214329767361
+ 15 |             0 | f        | rule_cand_2gram-7         |    0.123398810129727
+  6 |             0 | f        | rule_cand_1gram-5         |    0.095131700833162
+  9 |             0 | f        | rule_cand_1gram-7         |   0.0878025716030988
+ 16 |             0 | f        | rule_cand_2gram-5         |  0.00400764792862416
+ 18 |             0 | f        | rule_cand_2gram-6         | -0.00582363690704316
+  4 |             0 | f        | rule_cand_1gram-4         |  -0.0157384265138275
+ 10 |             0 | f        | rule_cand_1gram-3         |  -0.0362362967615368
+ 17 |             0 | f        | rule_cand_2gram-3         |  -0.0456268395083176
+ 11 |             0 | f        | rule_cand_2gram-4         |  -0.0548651753919863
+  2 |             0 | f        | rule_confirm-0            |  -0.0979965797106023
+ 21 |             0 | f        | rule_cand_2gram_nonexist- |   -0.229260674370212
+ 13 |             0 | f        | rule_cand_2gram-10        |   -0.830797326416753
+  0 |             0 | f        | rule_confirm--1           |    -1.79071505351071
+(22 rows)
+

@@ -14,7 +14,12 @@ LDC97S44/LDC97T22          1996 HUB4     104
 LDC98S71/LDC98T28          1997 HUB4     97
 LDC2005S11/LDC2005T16      TDT4          300
 
-In total, there are 152251 lattices.
+Statistics:
+    
+    22852182 candidates
+
+    152251 lattices
+
 
 ### Format 
 

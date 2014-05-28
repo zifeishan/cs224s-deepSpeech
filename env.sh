@@ -4,7 +4,7 @@
 export MEMORY="64g"
 #export MEMORY="2g"
 
-export PARALLELISM=4
+export PARALLELISM=20
 #export PARALLELISM=4
 
 # Database Configuration

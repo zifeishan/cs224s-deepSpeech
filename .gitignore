@@ -33,4 +33,6 @@
 .DS_Store
 build/
 *.pyc
-*.logspeech-data/
+*.log
+speech-data/
+

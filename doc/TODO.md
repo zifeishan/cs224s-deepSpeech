@@ -3,6 +3,7 @@ TODO
 
 - Error analysis
 - Optimize for PRECISION rather than recall
+- A- / TH- / 
 
 - Obtain Google 3/4/5gram
 

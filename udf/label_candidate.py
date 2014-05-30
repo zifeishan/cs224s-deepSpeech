@@ -166,9 +166,13 @@ def run(lattice_id, starts, ends, candidates, candidate_ids, transcript):
     #     f[i',j]
     #     f[i,j-1]
     #   }
-    for i_index in range(0, n1):
+    ordered_cids = orderedLattice(candidate_ids, edges)
+
+    # for i_index in range(0, n1):
+    for i_cid in ordered_cids:     # Must have topological order for DP
       for j in range(0, n2):
-        i_cid = candidate_ids[i_index]
+        # i_cid = candidate_ids[i_index]
+        i_index = index_cid_sub[i_cid]
 
         # TODO edges stores cids; i_succ_index is cid!!! i_index is index
         for i_succ_cid in edges[i_cid]:

@@ -1,9 +1,19 @@
+CREATE TABLE lattices_all (
+    lattice_id    TEXT     -- which lattice (document) it belongs
+    )  DISTRIBUTED BY (lattice_id);
+
 CREATE TABLE lattices (
     lattice_id    TEXT     -- which lattice (document) it belongs
     )  DISTRIBUTED BY (lattice_id);
 
 CREATE TABLE lattices_holdout (
     lattice_id    TEXT     -- which lattice (document) it belongs
+    )  DISTRIBUTED BY (lattice_id);
+
+CREATE TABLE lattice_meta (
+    lattice_id    TEXT,     -- which lattice (document) it belongs
+    speaker_id    TEXT,     -- speaker's identifier
+    sentenceid    TEXT      -- which sentence for this speaker
     )  DISTRIBUTED BY (lattice_id);
 
 
@@ -39,7 +49,7 @@ CREATE TABLE f_cand_2gram (
 
 CREATE TABLE transcript (
     lattice_id    TEXT,     -- which lattice (document) it belongs
-    wordid        TEXT,
+    wordid        INT,
     word          TEXT
     )  DISTRIBUTED BY (lattice_id);
 
@@ -60,3 +70,9 @@ CREATE TABLE transcript_array (
 --   FROM    transcript
 --   GROUP BY lattice_id
 -- DISTRIBUTED BY (lattice_id);
+
+CREATE TABLE output_bestpath (
+    lattice_id    TEXT,     -- which lattice (document) it belongs
+    words         TEXT[]
+) DISTRIBUTED BY (lattice_id);
+

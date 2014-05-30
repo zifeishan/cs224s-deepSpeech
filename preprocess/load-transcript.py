@@ -33,6 +33,7 @@ else:
 # if not os.path.exists(outfile):
 #   os.makedirs(outfile)
 
+print 'DBNAME:',dbname
 # Parse input transcript
 fin = open(path)
 
@@ -72,22 +73,23 @@ while True:
     print >>fout, '\t'.join( [this_lattice_name] + [str(x) for x in p])
   fout.close()
 
-os.system('''psql -c """DROP TABLE IF EXISTS err; CREATE TABLE err (cmdtime timestamp with time zone, relname text, filename text, linenum integer, bytenum integer, errmsg text, rawdata text, rawbytes bytea);""" '''+dbname)
-os.system('''psql -c "TRUNCATE transcript CASCADE;" '''+dbname)
+os.system('''psql -d %s -c "DROP TABLE IF EXISTS err; CREATE TABLE err (cmdtime timestamp with time zone, relname text, filename text, linenum integer, bytenum integer, errmsg text, rawdata text, rawbytes bytea);" ''' % dbname)
+os.system('''psql -d %s -c "TRUNCATE transcript CASCADE;" ''' % dbname)
 
 print 'Loading from', outfile
-sqlcmd = '''sed \'s/\\\\/\\\\\\\\/g\' '''+outfile+''' | psql -c "COPY transcript FROM STDIN LOG ERRORS INTO err SEGMENT REJECT LIMIT 1000 ROWS;" '''+ dbname
+sqlcmd = '''sed \'s/\\\\/\\\\\\\\/g\' '''+outfile+''' | psql -d %s -c "COPY transcript FROM STDIN LOG ERRORS INTO err SEGMENT REJECT LIMIT 1000 ROWS;" ''' % dbname
 print sqlcmd
 os.system(sqlcmd)
 
-os.system('''psql -c "ANALYZE transcript;" '''+dbname)
+os.system('''psql -d %s -c "ANALYZE transcript;" ''' % dbname)
 
-sqlcmd = '''INSERT INTO transcript_array
+sqlcmd = '''psql -d %s -c "
+TRUNCATE transcript_array;
+INSERT INTO transcript_array
   SELECT  lattice_id, 
           ARRAY_AGG(word ORDER BY wordid) AS words
   FROM    transcript
-  GROUP BY lattice_id;
-''' + dbname
+  GROUP BY lattice_id;"''' % dbname
 
 os.system(sqlcmd)
-os.system('''psql -c "ANALYZE transcript_array;" '''+dbname)
+os.system('''psql -d %s -c "ANALYZE transcript_array;" ''' % dbname)

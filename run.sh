@@ -5,6 +5,13 @@ export APP_HOME=`pwd`
 # export DEEPDIVE_HOME=`cd ../..; pwd`
 export DEEPDIVE_HOME=`cd $(dirname $0)/../..; pwd`
 
+export SAMPLE_SIZE=1000
+
+if [ $# = 1 ]; then          # Export Sample size from command line
+  echo "Set sample size to: $1"
+  export SAMPLE_SIZE=$1
+fi
+
 # source env.sh
 
 if [ -f $DEEPDIVE_HOME/sbt/sbt ]; then

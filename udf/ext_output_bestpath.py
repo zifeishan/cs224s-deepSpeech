@@ -176,9 +176,11 @@ def run(lattice_id, starts, ends, candidates, candidate_ids, transcript):
 
   ############# 2. Return DP result
 
-  # def run(lattice_id, starts, ends, candidates, candidate_ids, transcript):
+  # If expectation array is empty, fill it with 1 (for oracle)
+  exp = expectations
+  if len(expectations) == 0: exp = [1.0 for _ in range(len(candidates))]
   score, words = FindBestPath(candidates, \
-    edges, candidate_ids, index_cid_sub, expectations)
+    edges, candidate_ids, index_cid_sub, exp)
 
   # plpy.info('[%s]  SCORE: %d, Words: %s...' % (lattice_id, score, (' '.join(words))[:30]))
   yield lattice_id, words

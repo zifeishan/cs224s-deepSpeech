@@ -1,6 +1,7 @@
 TODO
 ====
 
+- RERUN supervision: wrong order in I!
 - Error analysis
 - Optimize for PRECISION rather than recall
 - A- / TH- / 
@@ -51,3 +52,19 @@ e.g.
      where c.lattice_id = f.lattice_id 
      and c.candidate_id = f.candidate_id
      limit 10;
+
+# TODO Story
+
+1. beat the crap
+2. near real time
+
+
+## ERRORs
+
+20001101_1400_1430_CNN_HDL034@0006: 
+
+    deepspeech=# select * from transcript_array where lattice_id ='20001101_1400_1430_CNN_HDL034@0006';
+                 lattice_id             |     words
+    ------------------------------------+----------------
+     20001101_1400_1430_CNN_HDL034@0006 | {<s>,THE,</s>}
+    (1 row)

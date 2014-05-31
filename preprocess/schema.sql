@@ -68,7 +68,8 @@ CREATE TABLE candidate_oracle (
 CREATE TABLE f_cand_2gram (
   lattice_id    TEXT,
   candidate_id  BIGINT,
-  ngram         TEXT
+  ngram         TEXT,
+  skipping      BOOLEAN
   )  DISTRIBUTED BY (lattice_id);
 
 CREATE TABLE transcript (

@@ -72,14 +72,17 @@ def run(lattice_id, starts, ends, candidates, candidate_ids, transcript):
 
   # Only return 1 path that has highest score. 
   # Break ties by ID order. (small wins)
-  def FindBestPath(lattice_words, edges, candidate_ids, index_cid_sub, expectations):
+  def FindBestPath(lattice_words, edges, candidate_ids, index_cid_sub, expectations, start_subs):
     # F: longest matching up to ith element from lattice_words and and jth from trans_words
     n1 = len(lattice_words)
     if n1 == 0: 
       return 0, []
 
-    f = [0.0 for _ in range(n1)]    # f[sub] ->score
+    f = [-10000000.0 for _ in range(n1)]    # f[sub] ->score
     path = [-1 for _ in range(n1)]  # stores index: f[sub] -> lastsub
+
+    # init f of startnodes to be 0
+    for i in start_subs: f[i] = 0.0
 
     ordered_cids = orderedLattice(candidate_ids, edges)
 
@@ -174,13 +177,15 @@ def run(lattice_id, starts, ends, candidates, candidate_ids, transcript):
         AddEdge(edges, candidate_ids[i], candidate_ids[j])
         indegree[j] += 1
 
+  start_subs = [i for i in range(len(indegree)) if indegree[i] == 0]
+
   ############# 2. Return DP result
 
   # If expectation array is empty, fill it with 1 (for oracle)
-  exp = expectations
-  if len(expectations) == 0: exp = [1.0 for _ in range(len(candidates))]
+  exp = [ e - 0.5 for e in expectations]
+  if len(expectations) == 0: exp = [0.5 for _ in range(len(candidates))]
   score, words = FindBestPath(candidates, \
-    edges, candidate_ids, index_cid_sub, exp)
+    edges, candidate_ids, index_cid_sub, exp, start_subs)
 
   # plpy.info('[%s]  SCORE: %d, Words: %s...' % (lattice_id, score, (' '.join(words))[:30]))
   yield lattice_id, words

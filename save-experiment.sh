@@ -1,8 +1,9 @@
 DATE=`ls -t ../../out/ | head -n 1`
+LASTDATE=`ls -t ../../out/ | head -n 2 | sed -n 2p`
 SAVEBASE=experiments/${DATE}-$1
 mkdir -p $SAVEBASE
 
-cp -r ../../out/${DATE}/calibration $SAVEBASE/calibration  # comment in $1
+cp -r ../../out/${LASTDATE}/calibration $SAVEBASE/calibration  # comment in $1
 
 cp -r application.conf $SAVEBASE/configuration.conf
 cp -r evaluation.conf $SAVEBASE/
@@ -16,3 +17,5 @@ export EVAL_BASE=speech-data/output/
 # save evaluation results
 mkdir -p $SAVEBASE/evaluation
 cp -r $EVAL_BASE/* $SAVEBASE/evaluation/ 
+
+echo "Experiment result saved to: experiments/${DATE}-$1/"

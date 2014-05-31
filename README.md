@@ -170,3 +170,27 @@ We propose to experiment on several existing word lattices with
 different lattice error rate ("oracle" error rate). We aim to generate
 output sequences that can approach the oracle error rate, or even go
 beyond it on bad-quality lattices (if time permits).
+
+
+Preliminary Results
+----
+
+### Holding out 50% of training set.
+
+100% dataset:
+
+DD      13.0%
+Base    22.9%
+Oracle  2.1%
+
+1k dataset:
+
+## before improving
+DD 13.4% 
+
+## add skip2gram
+DD 12.9%
+
+ # Snt # Wrd | Corr    Sub    Del    Ins    Err  S.Err |
+  500  20165 | 94.9    4.8    0.3    7.5   12.6   90.0 |
+

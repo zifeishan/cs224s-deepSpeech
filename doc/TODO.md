@@ -1,6 +1,10 @@
 TODO
 ====
 
+New features:
+- ngram skip silence
+- chaining??
+
 - RERUN supervision: wrong order in I!
 - Error analysis
 - Optimize for PRECISION rather than recall

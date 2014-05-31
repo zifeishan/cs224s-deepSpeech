@@ -28,6 +28,7 @@ def init():
   ddext.returns('lattice_id', 'text')
   ddext.returns('candidate_id', 'bigint')
   ddext.returns('ngram', 'text')
+  ddext.returns('skipping', 'boolean')
 
 # TODO CANNOT "def raaaan"?!
 def run(lattice_id, starts, ends, arr_feature, candidate_ids, gram_len):
@@ -42,11 +43,21 @@ def run(lattice_id, starts, ends, arr_feature, candidate_ids, gram_len):
       edges[f].append(t)
     SD['AddEdge'] = AddEdge
 
+
+  if 'skipset' in SD:
+    skipset = SD['skipset']
+  else:
+    skipset = set(['~SIL', '<s>', '</s>'])
+    SD['skipset'] = skipset
+
+
   if 'DFS' in SD:
     DFS = SD['DFS']
   else:
+
     # Start with DFS(edges, id, 1)
-    def DFS(lattice_id, edges, nowid, res_array, index_cid_sub):
+    def DFS(lattice_id, edges, nowid, res_array, index_cid_sub, skipping=False):
+
       # Reaches N, finish generated a N-gram. 
       if len(res_array) == gram_len:
         feature_tmp = []
@@ -60,16 +71,39 @@ def run(lattice_id, starts, ends, arr_feature, candidate_ids, gram_len):
         feature = ' '.join([f for f in feature_tmp])
         for cwid in res_array:
           # print lattice_id + '\t' + str(cwid) + '\t' + feature
-          yield lattice_id, cwid, feature
+          yield lattice_id, cwid, feature, skipping
         return
-      # Continue generating ngrams
-      if nowid in edges:
-        for j in edges[nowid]:
-          res_array.append(j)
-          # Nested yield
-          for item in DFS(lattice_id, edges, j, res_array, index_cid_sub):
-            yield item
-          res_array.pop()
+      
+      if nowid not in edges: return
+      
+      for jid in edges[nowid]:
+        next_word = arr_feature[index_cid_sub[jid]]
+        
+        if skipping: # already skipgram, don't generate nonskipgram.
+          if next_word in skipset:
+            for item in DFS(lattice_id, edges, jid, res_array, index_cid_sub, skipping=True):
+              yield item
+          else:
+            res_array.append(jid)
+            for item in DFS(lattice_id, edges, jid, res_array, index_cid_sub, skipping=True):
+              yield item
+            res_array.pop()
+        else:  # not skipping
+          if next_word in skipset: # branch into two!
+            # Skipgram
+            for item in DFS(lattice_id, edges, jid, res_array, index_cid_sub, skipping=True):
+              yield item
+            # Nonskipgram
+            res_array.append(jid)
+            for item in DFS(lattice_id, edges, jid, res_array, index_cid_sub, skipping=False):
+              yield item
+            res_array.pop()
+          else:
+            # nonskipgram
+            res_array.append(jid)
+            for item in DFS(lattice_id, edges, jid, res_array, index_cid_sub, skipping=False):
+              yield item
+            res_array.pop()
 
 
     SD['DFS'] = DFS
@@ -130,25 +164,25 @@ if __name__ == '__main__':
   import time
   lattice_id = 'test_lattice'
 
-  starts = [1,     3,     5   ]
-  ends =   [4,     4,     6   ]
-  words =  ['not', 'at', 'all']
-  cids =   [1001,  1002,  1003]
-  transcript = ['not',  'at',  'all']
-  test(lattice_id, starts, ends, words, cids, 2)
+  # starts = [1,     3,     5   ]
+  # ends =   [4,     4,     6   ]
+  # words =  ['not', 'at', 'all']
+  # cids =   [1001,  1002,  1003]
+  # transcript = ['not',  'at',  'all']
+  # test(lattice_id, starts, ends, words, cids, 2)
   
 
-  starts = [1,     3,     6,    1,    4,     6    ]
-  ends =   [2,     5,     7,    3,    5,     7    ]
-  words =  ['not', 'tai', 'all','now','at','tao'  ]
-  cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
-  transcript = ['not',  'at',  'all']
-  test(lattice_id, starts, ends, words, cids, 2)
+  # starts = [1,     3,     6,    1,    4,     6    ]
+  # ends =   [2,     5,     7,    3,    5,     7    ]
+  # words =  ['not', 'tai', 'all','now','at','tao'  ]
+  # cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
+  # transcript = ['not',  'at',  'all']
+  # test(lattice_id, starts, ends, words, cids, 2)
   
 
   starts = [1,     3,     5,    1,    4,     6    ]
   ends =   [2,     4,     6,    3,    5,     7    ]
-  words =  ['not', 'tai', 'all','now','at','tao'  ]
+  words =  ['not', '~SIL', 'all','now','at','tao'  ]
   cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
   transcript = ['not',  'at',  'all']
   test(lattice_id, starts, ends, words, cids, 2)

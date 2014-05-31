@@ -74,15 +74,15 @@ def run(lattice_id, starts, ends, candidates, candidate_ids, transcript):
 
   # DEBUG function
   def PrintStatus(f, path, message=''): 
-    # if message != '': print message
-    # print 'F score:'
-    # print '\n'.join([str(_) for _ in f])
-    # print 'Path:'
-    # for p in path:
-    #   for pairlist in p:
-    #     print '[%20s]' % ', '.join([str('(%d,%d)' % pair) for pair in pairlist]),
-    #   print ''
-    # raw_input()
+    if message != '': print message
+    print 'F score:'
+    print '\n'.join([str(_) for _ in f])
+    print 'Path:'
+    for p in path:
+      for pairlist in p:
+        print '[%20s]' % ', '.join([str('(%d,%d)' % pair) for pair in pairlist]),
+      print ''
+    raw_input()
     pass
 
 
@@ -96,7 +96,7 @@ def run(lattice_id, starts, ends, candidates, candidate_ids, transcript):
     if n1 == 0 or n2 == 0: 
       return 0, [], []
     # f = [[0] * (n2)] * (n1)  # Python array is weird....
-    f = [[0] * n2 for _ in range(n1)] # This is correct way, do not give a shallow copy!!  
+    f = [[0.0] * n2 for _ in range(n1)] # This is correct way, do not give a shallow copy!!  
     # f = { i:{j : 0 for j in range(0, n2)} for i in range(0, n1)}
     # an "array" for each grid in matrix
     path = [[[] for _2 in range(n2)] for _ in range(n1)]
@@ -122,7 +122,7 @@ def run(lattice_id, starts, ends, candidates, candidate_ids, transcript):
     for i_zero in zero_indegree_index:
       for j in range(n2):
         if ElemMatch(lattice_words[i_zero], trans_words[j]):
-          f[i_zero][j] = 1
+          f[i_zero][j] = 1.0
           path[i_zero][j].append((-1, -1)) # match
     
     # # Init
@@ -168,6 +168,7 @@ def run(lattice_id, starts, ends, candidates, candidate_ids, transcript):
     #   }
     ordered_cids = orderedLattice(candidate_ids, edges)
 
+    # Update: treat sub/del/ins equally
     # for i_index in range(0, n1):
     for i_cid in ordered_cids:     # Must have topological order for DP
       for j in range(0, n2):
@@ -180,12 +181,14 @@ def run(lattice_id, starts, ends, candidates, candidate_ids, transcript):
           word_succ = lattice_words[i_succ_index]
           if i_succ_index < n1 and j+1 < n2 \
             and ElemMatch(word_succ, trans_words[j+1]):
-              if f[i_succ_index][j+1] < f[i_index][j] + 1:
-                f[i_succ_index][j+1] = f[i_index][j] + 1
+              newscore = (f[i_index][j] * (j+1.) + 1.) / (j+2.)
+              if f[i_succ_index][j+1] < newscore:
+                f[i_succ_index][j+1] = newscore
                 path[i_succ_index][j+1] = [(i_index,j)]    # Path stores index :P
-              elif f[i_succ_index][j+1] == f[i_index][j] + 1:
+              elif f[i_succ_index][j+1] == newscore:
                 path[i_succ_index][j+1].append((i_index,j))
 
+          # TODO consider insertion!! This is insertion!
           if i_succ_index < n1: # shift down (to successor)
             if f[i_succ_index][j] < f[i_index][j]:
               f[i_succ_index][j] = f[i_index][j]
@@ -194,11 +197,13 @@ def run(lattice_id, starts, ends, candidates, candidate_ids, transcript):
               path[i_succ_index][j].append((i_index, j))
 
         if j + 1 < n2: # shift right (to next word in transcript)
-          if f[i_index][j+1] < f[i_index][j]:
-            f[i_index][j+1] = f[i_index][j]
+          newscore = f[i_index][j] * (j+1.) / (j+2.)
+          if f[i_index][j+1] < newscore:
+            f[i_index][j+1] = newscore
             path[i_index][j+1] = [(i_index, j)]
           elif f[i_index][j+1] == f[i_index][j]: # another best path
             path[i_index][j+1].append((i_index, j))
+
 
     # Only match "diagonal" edges
     possible_opt_match_pairs = []  # can have cases like [(1,a) (2,a)] but have to be both optimal!
@@ -226,7 +231,7 @@ def run(lattice_id, starts, ends, candidates, candidate_ids, transcript):
     # [1, 1, 1]
     # So we should check best end-nodes
     endnodes = [index_cid_sub[i] for i in edges if len(edges[i]) == 0]
-    maxscore = 0
+    maxscore = 0.0
     besti = []
     for i in endnodes:
       if maxscore < f[i][n2 - 1]:
@@ -312,7 +317,7 @@ def run(lattice_id, starts, ends, candidates, candidate_ids, transcript):
 
   # DEBUG
   # print '================'
-  # plpy.info('BEST SCORE: %d' % score)
+  # plpy.info('BEST SCORE: %f' % score)
   # print 'Match pairs:', match_pairs  # (latticeIndex, transcriptIndex)
   PrintStatus(f,path_mat)
 
@@ -330,7 +335,7 @@ def run(lattice_id, starts, ends, candidates, candidate_ids, transcript):
   for cid in false_cids:
     yield lattice_id, cid, False
 
-  plpy.info('[%s]  SCORE: %d, matches: %d / %d' % (lattice_id, score, len(true_cids), len(candidate_ids)))
+  plpy.info('[%s]  SCORE: %f, matches: %d / %d' % (lattice_id, score, len(true_cids), len(candidate_ids)))
 
 
 ### Testing
@@ -343,7 +348,7 @@ def test(lattice_id, starts, ends, words, cids, transcript, expected_score, expe
   for item in run(lattice_id, starts, ends, words, cids, transcript):
     print 'Returned item:',item
     if item[2]: true_num += 1
-  print 'Expected score: %d. check manually.' % expected_score
+  print 'Expected score: %f. check manually.' % expected_score
   if expected_cand == true_num:
     print 'Passed.'
     return 0
@@ -359,60 +364,60 @@ if __name__ == '__main__':
 
   # Assume ordered by starts then ends
 
-  starts = [1,     3,     5   ]
-  ends =   [2,     4,     6   ]
-  words =  ['not', 'at', 'all']
-  cids =   [1001,  1002,  1003]
-  transcript = ['not',  'at',  'all']
-  errors += test(lattice_id, starts, ends, words, cids, transcript, 3, 3)
+  # starts = [1,     3,     5   ]
+  # ends =   [2,     4,     6   ]
+  # words =  ['not', 'at', 'all']
+  # cids =   [1001,  1002,  1003]
+  # transcript = ['not',  'at',  'all']
+  # errors += test(lattice_id, starts, ends, words, cids, transcript, 3, 3)
   
 
-  starts = [1,     3,     5   ]
-  ends =   [4,     4,     6   ]
-  words =  ['not', 'at', 'all']
-  cids =   [1001,  1002,  1003]
-  transcript = ['not',  'at',  'all']
-  errors += test(lattice_id, starts, ends, words, cids, transcript, 2, 3)
+  # starts = [1,     3,     5   ]
+  # ends =   [4,     4,     6   ]
+  # words =  ['not', 'at', 'all']
+  # cids =   [1001,  1002,  1003]
+  # transcript = ['not',  'at',  'all']
+  # errors += test(lattice_id, starts, ends, words, cids, transcript, 2, 3)
   
 
-  starts = [1,     3,     6,    1,    4,     6    ]
-  ends =   [2,     5,     7,    3,    5,     7    ]
-  words =  ['not', 'tai', 'all','now','at','tao'  ]
-  cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
-  transcript = ['not',  'at',  'all']
-  errors += test(lattice_id, starts, ends, words, cids, transcript, 2, 3)
-  # Expected result: not (tai) all,  (now) at all
+  # starts = [1,     3,     6,    1,    4,     6    ]
+  # ends =   [2,     5,     7,    3,    5,     7    ]
+  # words =  ['not', 'tai', 'all','now','at','tao'  ]
+  # cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
+  # transcript = ['not',  'at',  'all']
+  # errors += test(lattice_id, starts, ends, words, cids, transcript, 2, 3)
+  # # Expected result: not (tai) all,  (now) at all
   
 
-  starts = [1,     3,     5,    1,    4,     6    ]
-  ends =   [2,     4,     6,    3,    5,     7    ]
-  words =  ['not', 'tai', 'all','now','at','tao'  ]
-  cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
-  transcript = ['not',  'at',  'all']
-  errors += test(lattice_id, starts, ends, words, cids, transcript, 2, 2)
+  # starts = [1,     3,     5,    1,    4,     6    ]
+  # ends =   [2,     4,     6,    3,    5,     7    ]
+  # words =  ['not', 'tai', 'all','now','at','tao'  ]
+  # cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
+  # transcript = ['not',  'at',  'all']
+  # errors += test(lattice_id, starts, ends, words, cids, transcript, 2, 2)
 
-  # X grid in the middle
-  starts = [  1,   2,     2,    3,      3  ,  4    ]
-  ends =   [  1,   2,     2,    3,      3  ,  4    ]
-  words =  ['A',   'B', 'X',  'X',      'B', 'C'   ]
-  cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
-  transcript = ['A','B','C']
-  errors += test(lattice_id, starts, ends, words, cids, transcript, 3, 4)
+  # # X grid in the middle
+  # starts = [  1,   2,     2,    3,      3  ,  4    ]
+  # ends =   [  1,   2,     2,    3,      3  ,  4    ]
+  # words =  ['A',   'B', 'X',  'X',      'B', 'C'   ]
+  # cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
+  # transcript = ['A','B','C']
+  # errors += test(lattice_id, starts, ends, words, cids, transcript, 3, 4)
 
-  starts = [  1,   2,     2,    3,      3  ,  4    ]
-  ends =   [  1,   2,     2,    3,      3  ,  4    ]
-  words =  ['A',   'B', 'C',  'C',      'B', 'D'   ]
-  cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
-  transcript = ['A','B','C','D']
-  errors += test(lattice_id, starts, ends, words, cids, transcript, 4, 4)
+  # starts = [  1,   2,     2,    3,      3  ,  4    ]
+  # ends =   [  1,   2,     2,    3,      3  ,  4    ]
+  # words =  ['A',   'B', 'C',  'C',      'B', 'D'   ]
+  # cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
+  # transcript = ['A','B','C','D']
+  # errors += test(lattice_id, starts, ends, words, cids, transcript, 4, 4)
 
-  # Two single paths: ABXC, AXBC
-  starts = [  1,   2,     4,    2,      5  ,  7    ]
-  ends =   [  1,   3,     6,    4,      6  ,  7    ]
-  words =  ['A',   'B', 'X',  'X',      'B', 'C'   ]
-  cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
-  transcript = ['A','B','C']
-  errors += test(lattice_id, starts, ends, words, cids, transcript, 3, 4)
+  # # Two single paths: ABXC, AXBC
+  # starts = [  1,   2,     4,    2,      5  ,  7    ]
+  # ends =   [  1,   3,     6,    4,      6  ,  7    ]
+  # words =  ['A',   'B', 'X',  'X',      'B', 'C'   ]
+  # cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
+  # transcript = ['A','B','C']
+  # errors += test(lattice_id, starts, ends, words, cids, transcript, 3, 4)
 
   # ABCD, ACBD
   starts = [  1,   2,     4,    2,      5  ,  7    ]

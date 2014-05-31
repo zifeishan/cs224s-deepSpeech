@@ -97,7 +97,7 @@ def MatchTranscriptWithLattice(lattice_words, trans_words, edges, candidate_ids,
   if n1 == 0 or n2 == 0: 
     return 0, [], []
   # f = [[0] * (n2)] * (n1)  # Python array is weird....
-  f = [[0] * n2 for _ in range(n1)] # This is correct way, do not give a shallow copy!!  
+  f = [[0.0] * n2 for _ in range(n1)] # This is correct way, do not give a shallow copy!!  
   # f = { i:{j : 0 for j in range(0, n2)} for i in range(0, n1)}
   # an "array" for each grid in matrix
   path = [[[] for _2 in range(n2)] for _ in range(n1)]
@@ -123,7 +123,7 @@ def MatchTranscriptWithLattice(lattice_words, trans_words, edges, candidate_ids,
   for i_zero in zero_indegree_index:
     for j in range(n2):
       if ElemMatch(lattice_words[i_zero], trans_words[j]):
-        f[i_zero][j] = 1
+        f[i_zero][j] = 1.0
         path[i_zero][j].append((-1, -1)) # match
   
   # # Init
@@ -182,10 +182,11 @@ def MatchTranscriptWithLattice(lattice_words, trans_words, edges, candidate_ids,
         word_succ = lattice_words[i_succ_index]
         if i_succ_index < n1 and j+1 < n2 \
           and ElemMatch(word_succ, trans_words[j+1]):
-            if f[i_succ_index][j+1] < f[i_index][j] + 1:
-              f[i_succ_index][j+1] = f[i_index][j] + 1
+            newscore = (f[i_index][j] * (j+1) + 1) / (j+2)
+            if f[i_succ_index][j+1] < newscore:
+              f[i_succ_index][j+1] = newscore
               path[i_succ_index][j+1] = [(i_index,j)]    # Path stores index :P
-            elif f[i_succ_index][j+1] == f[i_index][j] + 1:
+            elif f[i_succ_index][j+1] == newscore:
               path[i_succ_index][j+1].append((i_index,j))
 
         if i_succ_index < n1: # shift down (to successor)
@@ -196,8 +197,9 @@ def MatchTranscriptWithLattice(lattice_words, trans_words, edges, candidate_ids,
             path[i_succ_index][j].append((i_index, j))
 
       if j + 1 < n2: # shift right (to next word in transcript)
-        if f[i_index][j+1] < f[i_index][j]:
-          f[i_index][j+1] = f[i_index][j]
+        newscore = f[i_index][j] * (j+1) / (j+2)
+        if f[i_index][j+1] < newscore:
+          f[i_index][j+1] = newscore
           path[i_index][j+1] = [(i_index, j)]
         elif f[i_index][j+1] == f[i_index][j]: # another best path
           path[i_index][j+1].append((i_index, j))
@@ -228,7 +230,7 @@ def MatchTranscriptWithLattice(lattice_words, trans_words, edges, candidate_ids,
   # [1, 1, 1]
   # So we should check best end-nodes
   endnodes = [index_cid_sub[i] for i in edges if len(edges[i]) == 0]
-  maxscore = 0
+  maxscore = 0.0
   besti = []
   for i in endnodes:
     if maxscore < f[i][n2 - 1]:

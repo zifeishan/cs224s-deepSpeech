@@ -110,3 +110,10 @@ Experiment result saved to: experiments/2014-05-31T165652-/
     | SPKR    | # Snt   # Wrd  | Corr     Sub     Del     Ins    Err   S.Err  |
     | Sum/Avg |  500    20165  | 92.7     4.2     3.1     2.8   10.1    81.8  |
 
+Running on full table:
+
+12:26:19 [sampler] INFO  # nvar               : 22852182
+12:26:19 [sampler] INFO  # nfac               : 1314953737
+12:26:19 [sampler] INFO  # nweight            : 6079863
+12:26:19 [sampler] INFO  # nedge              : 2173745783
+

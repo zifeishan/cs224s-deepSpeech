@@ -1,6 +1,13 @@
 TODO
 ====
 
+New features 2:
+- Coreference
+- dependency?
+
+Run on a larger dataset
+- try different feature combs
+
     New features:
 X   - ngram skip silence
 X   - chaining??

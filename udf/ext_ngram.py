@@ -81,8 +81,9 @@ def run(lattice_id, starts, ends, arr_feature, candidate_ids, gram_len):
         
         if skipping: # already skipgram, don't generate nonskipgram.
           if next_word in skipset:
-            for item in DFS(lattice_id, edges, jid, res_array, index_cid_sub, skipping=True):
-              yield item
+            # for item in DFS(lattice_id, edges, jid, res_array, index_cid_sub, skipping=True):
+            #   yield item
+            pass  # rule: can only skip once...
           else:
             res_array.append(jid)
             for item in DFS(lattice_id, edges, jid, res_array, index_cid_sub, skipping=True):

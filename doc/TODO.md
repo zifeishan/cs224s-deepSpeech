@@ -1,9 +1,9 @@
 TODO
 ====
 
-New features:
-- ngram skip silence
-- chaining??
+    New features:
+X   - ngram skip silence
+X   - chaining??
 
 - RERUN supervision: wrong order in I!
 - Error analysis

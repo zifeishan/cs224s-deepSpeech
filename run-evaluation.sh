@@ -52,7 +52,7 @@ order by c.lattice_id
 
 echo "Running evaluation script..."
 # sclite -r $EVAL_BASE/transcript.trn -h $EVAL_BASE/dd-output.trn -i wsj
-sclite -f 0 -r $EVAL_BASE/transcript.trn -h $EVAL_BASE/dd-output.trn -i rm >$EVAL_BASE/eval-result.txt
+sclite -f 0 -r $EVAL_BASE/transcript.trn -h $EVAL_BASE/dd-output.trn -i wsj >$EVAL_BASE/eval-result.txt
 # sclite -r $EVAL_BASE/transcript.trn -h $EVAL_BASE/dd-output.trn -i rm >$EVAL_BASE/eval-result.txt
 
 grep 'SPKR' $EVAL_BASE/eval-result.txt

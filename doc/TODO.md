@@ -1,6 +1,10 @@
 TODO
 ====
 
+- Train on full dataset haven't succeeded yet...
+- GET RT03 DONE!!
+- would removing "lattices" table boost the speed?
+
 New features 2:
 - Coreference
 - dependency?

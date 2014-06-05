@@ -9,6 +9,21 @@ DD      13.0%
 Base    22.9%
 Oracle  2.1%
 
+Baseline:
+
+    Exporting lattice data...
+    Running evaluation script...
+    | SPKR                                      | # Snt  # Wrd | Corr    Sub    Del    Ins    Err  S.Err |
+    | Sum/Avg                                   |76366  2829539| 77.8    5.4   16.8    0.6   22.9   96.9 |
+
+Oracle:
+
+    Exporting lattice data...
+    Running evaluation script...
+    | SPKR                                      | # Snt  # Wrd | Corr    Sub    Del    Ins    Err  S.Err |
+    | Sum/Avg                                   |76366  2829539| 99.9    0.0    0.1    2.0    2.1   50.8 |
+
+
 1k dataset:
 
 ## before improving
@@ -117,3 +132,52 @@ Running on full table:
 12:26:19 [sampler] INFO  # nweight            : 6079863
 12:26:19 [sampler] INFO  # nedge              : 2173745783
 
+(alloc problem!!)
+
+Removed constraint rule:
+
+14:20:58 [sampler] INFO  # nvar               : 22852182
+14:20:58 [sampler] INFO  # nfac               : 456161691
+14:20:58 [sampler] INFO  # nweight            : 6079862
+14:20:58 [sampler] INFO  # nedge              : 456161691
+
+
+
+
+Running again: (removed stopword 2gram)
+/lfs/madmax/0/zifei/deepdive/out/2014-06-03T002732/graph.meta.csv
+
+00:27:32 [Main$(akka://deepdive)] INFO  Running pipeline 
+...
+00:37:16 [taskManager] INFO  Completed task_id=inference_grounding with Success(OK)
+... (This is actual grounding)
+01:01:36 [PostgresInferenceDataStoreComponent$PostgresInferenceDataStore(akka://deepdive)] INFO  Dumping inference rule_cand_2gram_nonexist...
+01:02:33 [taskManager] INFO  Memory usage: 2725/3468MB (max: 27159MB)
+01:03:23 [sampler] INFO  starting
+
+01:03:23 [sampler] INFO  # nvar               : 22852182
+01:03:23 [sampler] INFO  # nfac               : 439434743
+01:03:23 [sampler] INFO  # nweight            : 6078651
+01:03:23 [sampler] INFO  # nedge              : 439434743
+
+...
+
+01:37:21 [taskManager] INFO  Completed task_id=report with Success(Success(()))
+
+### FINAL RESULT 
+
+Exporting lattice data...
+Running evaluation script...
+  | SPKR   |  # Snt     # Wrd   | Corr    Sub     Del    Ins    Err   S.Err |
+  | Sum/Avg| 76366     2829539  | 92.0    3.6     4.3    2.2   10.2    75.7 |
+Exporting lattice data...
+Running evaluation script...
+| SPKR                                      | # Snt  # Wrd | Corr    Sub    Del    Ins    Err  S.Err |
+| Sum/Avg                                   |76366  2829539| 77.8    5.4   16.8    0.6   22.9   96.9 |
+Exporting lattice data...
+Running evaluation script...
+| SPKR                                      | # Snt  # Wrd | Corr    Sub    Del    Ins    Err  S.Err |
+| Sum/Avg                                   |76366  2829539| 99.9    0.0    0.1    2.0    2.1   50.8 |
+
+
+*SAVED TO: experiments/2014-06-03T013626-full-noconstraint-2/evaluation/*

@@ -85,7 +85,7 @@ Features we implement are listed below. Some are discussed in the above section 
 
 We increment features and observe impact for each feature.
 
-We start from unigram frequency, add bigram frequency and trigram frequency. Then we try using *only* "confirm" feature, add start-end feature onto it, add unigrams and bigrams, then add bigram-silence, bigram-stopword, and bigram-bag (features get more and more sparse). We further add conflict rule and "chain" rule, at last add larger language models like bags of word 1grams, POS 5grams, and stop word 3grams.
+We start from unigram frequency;then add bigram frequency and trigram frequency. Then we try using *only* the "confirm" feature, adding start-end feature onto it, adding unigrams and bigrams, then adding bigram-silence, bigram-stopword, and bigram-bag (features get more and more sparse). We further add conflict rule and "chain" rule; at last add larger language models like bags of word 1grams, POS 5grams, and stop word 3grams.
 
 ### Experiment results
 
@@ -98,17 +98,17 @@ We report the observed word error rate (WER) and sentence error rate (SER) in Fi
 \label{fig:features}
 \end{figure}
 
-Specifically, we take following lessons:
+Specifically, we take the following lessons:
 
-(1) Unigram frequency feature itself does not work, since most ASR softwares tries to give valid words in dictionary.
+(1) Unigram frequency itself does not work, since most ASR softwares tries to give valid words in dictionary.
 
-(2) 1/2/3gram frequency feature is not as good as "confirm" feature alone. This indicates that a weak language model is not as competitive as a good second-confirmatory system (ensemble wins).
+(2) 1/2/3gram frequency feature is not as good as the "confirm" feature alone. This indicates that a weak language model is not as competitive as a good second-confirmatory system (ensemble wins).
 
-(3) Sparse bag-of-Ngram feature helps. By adding feature *bigram-silence*, *bigram-stopword* and *bigram-bag* incrementally, we observe continuous decrease in WER (11.3, 10.8, 10.1). This indicates that our system is able to make reasonable regularization and handle sparsity well.
+(3) Sparse bag-of-Ngram feature helps. By adding the features *bigram-silence*, *bigram-stopword* and *bigram-bag* incrementally, we observe continuous decrease in WER (11.3, 10.8, 10.1). It indicates that our system is able to make reasonable regularization and handle sparsity well.
 
 (4) The "conflict" constraint decreases WER, but increases SER; while the "chain" constraint increases WER, but decreases SER.
 
-(5) The larger language model we feed DeepSpeech, the better results it gets. When we feed stopword 3gram and POS 5gram, it gets WER of only 9.1%.
+(5) The larger language model we feed DeepSpeech, the better result it gets. When we feed stopword 3gram and POS 5gram, it gets WER of only 9.1%.
 
 
 <!-- POS Ngram feature does not help much. However this might be because that we only use single-word one-best tagger. If we find a way to tag in sentences we might observe a better result. -->

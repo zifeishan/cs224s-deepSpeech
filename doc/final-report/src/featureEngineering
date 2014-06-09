@@ -1,0 +1,58 @@
+1. Google unigram frequency
+    "rule_cand_1gram",
+    "rule_cand_1gram_nonexist",
+
+2. Google bigram frequency
+    "rule_cand_2gram",
+    "rule_cand_2gram_nonexist",
+
+3. The feature provided by LDC dataset
+    "rule_confirm",
+
+4. Start and end word of sentence 
+    "rule_startend",
+
+5.
+    "rule_cand_2gram_bag",
+6.
+    # "rule_stopword_2gram", # TODO try to add    
+7.
+    "rule_skipgram_window",
+
+8.
+    # "rule_conflict_constraint", # TODO add
+9.
+    # "rule_chain",  # increase Err, decrese S.Err  # TODO add
+
+10.
+    # "rule_pos_2gram", # TODO add
+    # "rule_pos_3gram", # TODO add
+
+11. Trigram
+    "rule_cand_3gram",
+
+#####################################
+
+## Incremental:
+
+{1}                          99.6   99.8
+{1 2}                        24.9   94.6
+{1 2 11}                     22.3   95.3
+{3}                          13.6   81.0   
+{3 4}                        13.3   79.2
+{3 4 1 2}                    11.9   82.8
+{3 4 1 2 5}                  10.1   79.5
+{3 4 1 2 5 7}                10.5   81.0
+{3 4 1 2 5 6 7}              10.3   80.1
+{3 4 1 2 5 6 7 8}            9.7    84.9
+{3 4 1 2 5 6 7 8 9}          11.2   81.5
+{3 4 1 2 5 6 7 8 9 10}       11.5   81.9
+{3 4 1 2 5 6 7 8 10}         9.8    83.5
+
+The above experiments is carried on a small lattice contains 1000 sentences using 300 iteration of gradient descent. 
+Feature 3 is provided by LDC dataset which itself provides 13.1 word error rate. It is a good baseline feature for feature engineering. Feature 4 is the start and end word of a sentence.
+we included it as our baseline feature as well.
+Google unigram and bigram frequency combined provides 24.9 word error rate, which is already comparable to the basline 22.9 word error rate. From this we see that n-gram features are very useful for language model, so we include unigram and bigram features in our subsequent experiments. In addition, adding a trigram feature will improve the result to 22.3, which beats the baseline WER. We can see that bigram features are assigned more weights then unigram and trigram features.
+The next feature we're using are the actual bigram strings appeared in the lattice.
+
+

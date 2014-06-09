@@ -146,7 +146,7 @@ def run(lattice_id, starts, ends, arr_feature, candidate_ids, gram_len):
       for j in index_start_sub[end + 1]:
         AddEdge(edges, candidate_ids[i], candidate_ids[j])
 
-
+  print edges
   ######## 2. DFS output candidates
   res_array = []
   for startid in sorted(edges.keys()):
@@ -187,5 +187,6 @@ if __name__ == '__main__':
   cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
   transcript = ['not',  'at',  'all']
   test(lattice_id, starts, ends, words, cids, 2)
+
 
   # Weird yield issue...

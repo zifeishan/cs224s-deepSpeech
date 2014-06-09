@@ -1,0 +1,116 @@
+\documentclass[a4paper]{article}
+\usepackage{interspeech2013,amssymb,amsmath,epsfig}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{stfloats}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{subfigure}
+\usepackage{epstopdf}
+\usepackage{url}
+\usepackage{amssymb,amsmath}
+\usepackage{flushend}
+\usepackage{microtype} % Margin kerning / font expansion
+\usepackage{mathptmx} % Narrow font, designed for multiple columns
+\usepackage{enumitem} % enable global spacing of enumerate
+% \usepackage{enumerate} % enable enumerate[1.]
+
+\setcounter{page}{1}
+\sloppy		% better line breaks
+\ninept
+%SM below a registered trademark definition
+\def\reg{{\rm\ooalign{\hfil
+     \raise.07ex\hbox{\scriptsize R}\hfil\crcr\mathhexbox20D}}}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{problem}{Problem}
+\setlist[enumerate]{itemsep=0mm}
+
+%% \newcommand{\reg}{\textsuperscript{\textcircled{\textsc r}}}
+\title{DeepSpeech: A Scalable Decoding System that Integrates Knowledge for Speech Recognition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% If multiple authors, uncomment and edit the lines shown below.       %%
+%% Note that each line must be emphasized {\em } by itself.             %%
+%% (by Stephen Martucci, author of spconf.sty).                         %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\makeatletter
+%\def\name#1{\gdef\@name{#1\\}}
+%\makeatother
+%\name{{\em Firstname1 Lastname1, Firstname2 Lastname2, Firstname3 Lastname3,}\\
+%      {\em Firstname4 Lastname4, Firstname5 Lastname5, Firstname6 Lastname6,
+%      Firstname7 Lastname7}}
+%%%%%%%%%%%%%%% End of required multiple authors changes %%%%%%%%%%%%%%%%%
+
+\makeatletter
+\def\name#1{\gdef\@name{#1\\}}
+\makeatother
+% \name{{\em Karen Sp\"{a}rck Jones$^1$, Rose Tyler$^2$}}
+\name{Zifei Shan, Tianxin Zhao, Haowen Cao}
+
+\address{Department of Computer Science, Stanford University \\
+{\small \tt \{zifei, tianxin, caohw\}@stanford.edu}}
+
+% \address{$^1$Department of Computer Science, Stanford University,
+%   Ambridge, Voiceland \\
+%   $^2$Department of Linguistics, University of Speechcity, Speechland\\
+% {\small \tt Karen@sh.brittania.edu, RTyler@ling.speech.edu}}
+
+%\twoauthors{Karen Sp\"{a}rck Jones.}{Department of Speech and Hearing \\
+%  Brittania University, Ambridge, Voiceland \\
+%  {\small \tt Karen@sh.brittania.edu} }
+%  {Rose Tyler}{Department of Linguistics \\
+%  University of Speechcity, Speechland \\
+%  {\small \tt RTyler@ling.speech.edu} }
+
+%
+\begin{document}
+\maketitle
+%
+\begin{abstract}
+
+\input{build/abstract}
+
+\end{abstract}
+\noindent{\bf Index Terms}: language model, advanced decoding
+
+
+
+\input{build/intro}
+
+\input{build/model}
+
+\input{build/algo}
+
+\input{build/eval}
+
+\input{build/related}
+
+\input{build/conc}
+
+% \section{Acknowledgements}
+% The ISCA Board would like to thank the organizing committees of past INTERSPEECH conferences for their help and for kindly providing the template files.
+
+\newpage
+%
+\eightpt
+% \bibliographystyle{IEEEtran}
+% \bibliography{IEEEabrv, src/related}
+
+\bibliographystyle{abbrv}
+\bibliography{src/related}
+
+% \begin{thebibliography}{10}
+% \bibitem[1]{ES1} Smith, J. O. and Abel, J. S., 
+% ``Bark and {ERB} Bilinear Transforms'', 
+% IEEE Trans. Speech and Audio Proc., 7(6):697--708, 1999.  
+% \bibitem[2]{ES2} Soquet, A., Saerens, M. and Jospa, P.,``Acoustic-articulatory
+% inversion'', in T. Kohonen [Ed], Artificial Neural Networks, 371-376,
+% Elsevier, 1991.
+% \bibitem[3]{ES3} Stone, H.S., ``On the uniqueness of the convolution theorem
+% for the Fourier transform'', NEC Labs. Amer. Princeton, NJ. 
+% Online: http://citeseer.ist.psu.edu/176038.html, accessed on 19 Mar 2008.
+% \end{thebibliography}
+\end{document}

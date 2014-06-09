@@ -1,0 +1,116 @@
+% THIS IS SIGPROC-SP.TEX - VERSION 3.1
+% WORKS WITH V3.2SP OF ACM_PROC_ARTICLE-SP.CLS
+% APRIL 2009
+
+\documentclass{sig-alternate}
+% \usepackage{algorithmic}
+\usepackage[ruled,lined]{algorithm2e}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{graphicx}
+\usepackage{stfloats}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{array}
+\usepackage{subfigure}
+\usepackage{epstopdf}
+\usepackage{url}
+\usepackage{amssymb,amsmath}
+\usepackage{flushend}
+\usepackage{microtype} % Margin kerning / font expansion
+\usepackage{mathptmx} % Narrow font, designed for multiple columns
+\usepackage{enumitem} % enable global spacing of enumerate
+% \usepackage{enumerate} % enable enumerate[1.]
+
+% \newtheorem{algorithm}{Algorithm}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{problem}{Problem}
+
+\setlist[enumerate]{itemsep=0mm}
+
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\maketitle}{\@copyrightspace}{}{}{}
+\makeatother
+
+\begin{document}
+
+% --- Author Metadata here ---
+% \conferenceinfo{ICUIMC(IMCOM) '13}{January 17--19, 2013, Kota Kinabalu, Malaysia.}
+% \CopyrightYear{2013} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
+% % Copyright 2013 ACM 978-1-4503-1958-4…$15.00.
+% \crdata{978-1-4503-1958-4}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
+% --- End of Author Metadata ---
+
+
+\title{Kaleidoscope: Computer-Assisted Ideation\\ through Idea Network Exploration}
+
+% \numberofauthors{1} %  in this sample file, there are a *total*
+% % of EIGHT authors. SIX appear on the 'first-page' (for formatting
+% % reasons) and the remaining 	two appear in the \additionalauthors section.
+% %
+\author{
+% 1st. author
+\alignauthor
+Zifei Shan, Yuke Zhu and Tianxin Zhao\thanks{\textbf{Group 12}, CS 224W 2013 course project final report.}\\
+        \affaddr{Department of Computer Science, Stanford University}\\
+        \email{\url{{zifei, yukez, tianxin}@stanford.edu}}
+}
+% \alignauthor
+% Anonymous Author\\
+%         \affaddr{Affiliation Line 1}\\
+%         \affaddr{Affiliation Line 2}\\        
+%         \email{Email}
+% }
+% 2nd. author
+% \alignauthor
+% G.K.M. Tobin\titlenote{The secretary disavows
+% any knowledge of this author's actions.}\\
+%       \affaddr{Institute for Clarity in Documentation}\\
+%       \affaddr{P.O. Box 1212}\\
+%       \affaddr{Dublin, Ohio 43017-6221}\\
+%       \email{webmaster@marysville-ohio.com}
+
+\maketitle
+
+
+\begin{abstract}
+
+\input{build/abstract}
+
+\end{abstract}
+
+% % A category with the (minimum) three required fields
+% \category{H.4}{Information Systems Applications}{Miscellaneous}
+% %A category including the fourth, optional field follows...
+% \category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
+
+% \category{J.4}{Computer Applications}{Social and Behavioral Sciences}
+% \category{H.3.5}{Information Storage and Retrieval}{Online Information Services}
+
+% \terms{Security, Design, Experimentation}
+
+\keywords
+{Information Networks, Data Mining, Model, Algorithm, Collaborative Innovation, Ideation, System}
+
+\input{build/intro}
+
+\input{build/related}
+
+\input{build/dataset}
+
+\input{build/model}
+
+\input{build/algo}
+
+\input{build/eval}
+
+\input{build/conc}
+
+% \section*{Acknowledgment}
+
+\bibliographystyle{abbrv}
+\bibliography{src/related}
+
+\end{document}

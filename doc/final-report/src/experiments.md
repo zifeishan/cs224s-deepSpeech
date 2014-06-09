@@ -26,8 +26,6 @@ After initial feature engineering, we use following features:
 
 **TODO cite: Google Ngram**
 
-TODO: Next steps: co-reference features and candidate generation
-
 ### Results
 
 We use the standard tool SCLITE for scoring. We evaluate our system, a baseline system (Attila), and lattice oracle (optimal) word error rate. The word error rate includes substitutions, deletions and insertions.
@@ -67,7 +65,7 @@ Features we implement are listed below. Some are discussed in the above section 
 
 2. (*bigram-freq*) Google bigram frequency
 
-3. (*confirm*) The "confirmatory" feature provided by LDC dataset
+3. (*confirm*) The "confirmatory" decoding made with an independent speech recognizer, provided by LDC dataset
 
 4. (*start-end*) Start and end marks of sentence (`<s>` and `</s>`): each sentence is starting and ending with a special mark. We add a factor to a candidate word if it is this special mark.
 

@@ -74,7 +74,9 @@ We got WER 10.2% on 152,251 broadcast news lattices with a simple feature set. (
 System
 ----
 
-We will release *DeepSpeech* system as an open-source platform for advanced decoding with flexible knowledge integration. Developers will be able to plug in their own extractors and apply the system to their own datasets.
+We will release *DeepSpeech* system as an open-source platform for advanced decoding with flexible knowledge integration. Developers will be able to plug in their own extractors and apply the system to their own datasets. The system is built on a scalable inference engine *DeepDive*. 
+
+**TODO cite deepdive**
 
 Using DeepSpeech provides following benefits: (1) easy extraction and integration of linguistic features; (2) simpler feature engineering loops; (3) a rigorous probabilistic framework.
 

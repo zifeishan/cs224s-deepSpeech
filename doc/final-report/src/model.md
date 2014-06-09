@@ -59,6 +59,7 @@ After getting the factor graph with evidence, we perform statistical learning an
 **TODO cite: GD and Gibbs; DeepDive**
 
 ## Finding Best Path on Factor Graphs
+\label{sec:bestpath}
 
 After learning and inference, each candidate word on the lattice gets
 a probability of being correct. Therefore the "best path" is well
@@ -89,6 +90,6 @@ Let's look at *expected deletions*. Selecting $P1$ means not selecting node $D$,
 
 In this way we can develop a dynamic programming metric to optimize edit distance. Equivalent to the above problem, we can add a punishment of -0.5 to each candidate: $p'_i = p_i - 0.5$, and select a path that optimizes $\sum_i{p'_i}$.
 
-
+**TODO: cite one-best path algorithms**
 
 

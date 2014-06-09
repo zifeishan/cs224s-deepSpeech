@@ -46,17 +46,15 @@ As for the DP algorithm, for each candidate in the lattice, we store the maximum
 
 <!-- **TODO tianxin**: DP formula -->
 
-<!-- \begin{multline} -->
-\begin{align*} 
-\begin{equation}
+<!-- \begin{multline} --> 
+\begin{equation*}
 \begin{split}
    f[i,j] =   \max\limits_{i' : i' is predecessor of i} &\{f[i', j-1] + 1\{lattice[i] = transcript[j]\} , \\
    & f[i',j] ,\\
    & f[i,j-1] \\
    \}  
 \end{split}
-\end{equation}
-\end{align*}
+\end{equation*}
 <!-- \end{multline} -->
 
 <!-- **TODO Cite SCLITE edit distance** -->

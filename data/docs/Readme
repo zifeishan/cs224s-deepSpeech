@@ -1,0 +1,84 @@
+
+This subdirectory contains lattices derived from the Johns Hopkins 2010
+Summer Workshop on Speech Recognition with Conditional Random Fields. 
+It consists of lattices for training and decoding with the Microsoft SCARF 
+toolkit for segmental conditional random fields. These lattices were generated
+using the IBM Attila recognizer; see Soltau et al., "The IBM Attila Speech 
+Recognition Toolkit," Proc. SLT 2010. By adding detector files and 
+lattice annotations, improvements can be made on top of a state-of-the-art
+broadcast news system. The SCARF Manual (available by download at:
+http://research.microsoft.com/en-us/projects/scarf/) describes in detail
+how to add new information sources, and the use in the 2010 JHU workshop
+is summarized in Zweig et al., "Speech Recognition with Segmental 
+Conditional Random Fields: A Summary of the JHU CLSP Summer Workshop," Proc.
+ICASSP 2011.
+
+
+** Training Data
+
+Training lattices are derived from the corpora listed below:
+LDC Number                 Description   Hours
+LDC97S44/LDC97T22          1996 HUB4     104
+LDC98S71/LDC98T28          1997 HUB4     97
+LDC2005S11/LDC2005T16      TDT4          300
+In total, there are 152251 lattices. These consitute a subset of the entire
+data with good alignments and lack of other errors. The lattices can be 
+related to the original audio files via the file "train.db.gz". 
+This file lists for each segment a tag-name, segment number, the original
+audio file, channel (always 0), start time, and end time (in seconds). A
+sample line is:
+19960510_NPR_ATC#Ailene_Leblanc 0001 19960510_NPR_ATC.sph 0 76.767 89.404
+This corresponds to the release lattice labeled:
+19960510_NPR_ATC#Ailene_Leblanc@0001.dc 
+
+
+The file train.Bdc contains "denominator" lattices. The file "train.Bnc" 
+has the "numerator" lattices, which have the subset of paths which are
+consistent (modulo silence) with the training transcriptions. The file
+"train.Btr" has the transcriptions.
+
+The file train.Bbase contains the baseline (one-best) word detections
+from the Attila system.
+
+The lattices were generated from an acoustic model that included
+LDA+MLLT, VTLN, fMLLR based SAT training, fMMI and mMMI discriminative 
+training, and MLLR. The lattices are annotated with a field indicating 
+the results of a second "confrimatory" decoding made with an 
+independent speech recognizer. When there was a correspondence between 
+a lattice link and the 1-best secondary output, the link was annotated 
+with +1. Silence links got 0 and all others -1. Correspondence
+was computed by finding the midpoint of a lattice link, and comparing the
+link label with that of the word in the secondary decoding at that 
+position. Thus, there are some cases where the same word shifted slightly
+in time receives a different confirmation score.
+
+A full description of the lattice generation process can be found in 
+Zweig et al., "Speech Recognition with Segmental Conditional Random Fields: 
+Final Report from the 2010 JHU Summer Workshop," MSR Technical Report
+MSR-TR-2010-173.
+In brief, the steps were:
+1. Discard cross-word context from the Attila lattices: treat two 
+occurrences of a word as identical if they share the same start and end 
+times. This results in a large size reduction.
+2. Create the denominator lattices: Augment the decoding lattices with 
+a forced alignment of the transcript. This ensures that the denominator
+contains the correct path.
+3. Create the numerator lattices: Intersect the denominator lattices with 
+the transcript. This results in the forced alignment added above,
+along with various other consistent segmentations. Note that the numerator 
+is a strict subset of the denominator, and so probabilities less than 1 
+are guaranteed.
+4. Create a baseline detector stream by recoding a word detection at the 
+midpoint of each word in the one-best Attila output.
+5. Perform bias reversal on the baseline: if a word occurrence is present 
+in the forced alignment, but not in the decoded output, correct the 
+baseline detector stream within the span of the word - remove any detetions
+within it, and output a correct detection. 
+
+** Test Data
+
+The test data consists of the 2003 NIST Rich Transcription Evaluation Data,
+LDC2007S10. Bbase and Bdc files are provided, along with the db file
+rt03.db.gz to link the segments to times in the original waveform. Scoring
+scripts may be obtained from NISTs, 
+http://www.itl.nist.gov/iad/mig/tests/rt/2003-spring/index.html

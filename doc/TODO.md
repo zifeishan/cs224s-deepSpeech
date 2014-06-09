@@ -1,10 +1,32 @@
 TODO
 ====
 
-distant supervision?
+- Train on full dataset haven't succeeded yet...
+- GET RT03 DONE!!
+- would removing "lattices" table boost the speed?
 
-- regenerate candidates with cand_words (have to)
-- OR rewrite cand_match.py
+New features 2:
+- Coreference
+- dependency?
+
+Run on a larger dataset
+- try different feature combs
+
+    New features:
+X   - ngram skip silence
+X   - chaining??
+
+- RERUN supervision: wrong order in I!
+- Error analysis
+- Optimize for PRECISION rather than recall
+- A- / TH- / 
+
+- Obtain Google 3/4/5gram
+
+- distant supervision?
+
+X regenerate candidates with cand_words (have to)
+X OR rewrite cand_match.py
 
 Links
 
@@ -45,3 +67,19 @@ e.g.
      where c.lattice_id = f.lattice_id 
      and c.candidate_id = f.candidate_id
      limit 10;
+
+# TODO Story
+
+1. beat the crap
+2. near real time
+
+
+## ERRORs
+
+20001101_1400_1430_CNN_HDL034@0006: 
+
+    deepspeech=# select * from transcript_array where lattice_id ='20001101_1400_1430_CNN_HDL034@0006';
+                 lattice_id             |     words
+    ------------------------------------+----------------
+     20001101_1400_1430_CNN_HDL034@0006 | {<s>,THE,</s>}
+    (1 row)

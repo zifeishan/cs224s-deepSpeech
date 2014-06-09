@@ -1,0 +1,141 @@
+<html>
+	<head>
+		<title>Broadcast News Lattices</title>
+		<meta name="description"
+			content="Documentation for Broadcast News Lattices">
+		<meta name="keywords"
+			content="Linguistic Data Consortium LDC Documentation for Broadcast News Lattices">
+	</head>
+	<body bgcolor="#ffffff" LINK="#990000" ALINK="#990000" VLINK="#990000"
+		TEXT="#000000">
+
+		
+<h1 align="center"> <font color="#990000">Broadcast News Lattices </font> </h1>
+		<h3>
+			Introduction
+		</h3>
+
+		
+<p> Broadcast News Lattices, Linguistic Data Consortium (LDC) catalog number LDC2011T06 
+  and isbn 1-58563-578-2, was developed by researchers at Microsoft and Johns 
+  Hopkins Unviersity (JHU) for the <a href="http://www.clsp.jhu.edu/workshops/ws10/groups/srscrf/">Johns 
+  Hopkins 2010 Summer Workshop on Speech Recognition with Conditional Random Fields</a>. 
+  The lattices were generated using the <a href="docs/AttilaSLT11.pdf">IBM 
+  Attila speech recognition toolkit</a>  
+  and were derived from transcripts of approximately 400 hours of English broadcast 
+  news recordings. They are intended to be used for training and decoding with 
+  Microsoft's segmental CRF toolkit for speech recogntion, <a href="http://research.microsoft.com/en-us/projects/scarf/">SCARF</a>. 
+</p>
+<p>The goal of the JHU 2010 workshop was to advance the state-of-the-art in core 
+  speech recognition by developing new kinds of features for use in a Segmental 
+  Conditional Random Field (SCRF). The SCRF approach generalizes Condtional Random 
+  Fields to operate at the segment level, rather than at the traditional frame 
+  level. Every segment is labeled directly with a word. Features are then extracted 
+  which each measure some form of consistency between the underlying audio and 
+  the word hypothesis for a segment. These are combined in a log-linear model 
+  (lattice) to produce the posterior possibility of a word sequence given the 
+  audio. </p>
+<h3>
+			Data&nbsp;
+		</h3>
+
+		
+<p>Broadcast News Lattices consists of training and test material, the source 
+  data for which was taken from various corpora distributed by LDC. </p>
+<p><strong>Training Data</strong> <br>
+  <br>
+  The training lattices total 152251 and were derived from the following data 
+  sets:</p>
+<p><a href="http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC97S44">1996 
+  English Broadcast News Speech LDC97S44</a>; <a href="http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC97T22">1996 
+  English Broadcast News Transcripts (HUB4) LDC97T22</a> (104 hours)</p>
+<p><a href="http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC98S71">1997 
+  English Broadcast News Speech (HUB4) LDC98S71</a>; <a href="http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC98T28">1997 
+  English Broadcast News Transcripts (HUB4) LDC98T28</a> (97 hours) 
+<p><a href="http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC2005S11">TDTD4 
+  Multilingual Broadcast News Speech Corpus LDC2005S11</a>; <a href="http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC2005T16">TDT4 
+  Multilingual Text and Annotations LDC2005T16</a> (300 hours)</p>
+<p>The lattices can be related to the original audio files via the file <strong>&quot;train.db.gz&quot;</strong> 
+  which lists for each segment a tag-name, segment number, the original audio 
+  file, channel (always 0), start time, and end time (in seconds). A sample line 
+  is as follows:</p>
+<p> 19960510_NPR_ATC#Ailene_Leblanc 0001 19960510_NPR_ATC.sph 0 76.767 89.404 
+  | <br>
+  <br>
+  This sample line corresponds to the release lattice labeled: </p>
+<p>19960510_NPR_ATC#Ailene_Leblanc@0001.dc </p>
+<p>The file <strong>&quot;train.Bdc&quot;</strong> contains &quot;denominator&quot; 
+  lattices. The file <strong>&quot;train.Bnc&quot;</strong> has the &quot;numerator&quot; 
+  lattices containing the subset of paths consistent with the training transcriptions. 
+  The file <strong>&quot;train.Btr&quot;</strong> consists of the transcriptions. 
+  The file <strong>&quot;train.Bbase&quot;</strong> contains the baseline (one-best) 
+  word detections from the Attila system. <br>
+  <br>
+  The lattices were generated from an acoustic model that included LDA+MLLT, VTLN, 
+  fMLLR based SAT training, fMMI and mMMI discriminative training, and MLLR. The 
+  lattices are annotated with a field indicating the results of a second &quot;confirmatory&quot; 
+  decoding made with an independent speech recognizer. When there was a correspondence 
+  between a lattice link and the 1-best secondary output, the link was annotated 
+  with +1. Silence links are denominated with 0 and all others with -1. Correspondence 
+  was computed by finding the midpoint of a lattice link and comparing the link 
+  label with that of the word in the secondary decoding at that position. Thus, 
+  there are some cases where the same word shifted slightly in time receives a 
+  different confirmation score. </p>
+<p><strong>Test Data</strong> <br>
+  <br>
+  The test lattices are derived from the English broadcast news material in <a href="http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC2007S10
+  ">2003 NIST Rich Transcription Evaluation Data LDC2007S10</a>. <strong>Bbase</strong> 
+  and <strong>Bdc</strong> files are provided, along with the<strong> db file 
+  rt03.db.gz</strong> to link the segments to times in the original waveform. 
+  Scoring scripts may be obtained from the  <a
+			href="http://www.itl.nist.gov/iad/mig/tests/rt/2003-spring/index.html ">NIST Rich Transcription website</a>. 
+</p>
+<h3>SCARF Toolkit</h3>
+<p>The SCARF toolkit is available for download from the <a href="http://research.microsoft.com/en-us/projects/scarf/">SCARF 
+  website</a>. </p>
+<h3>Related Publications</h3>
+<p>A full description of the lattice generation process can be found in Zweig 
+  et al., &quot;Speech Recognition with Segmental Conditional Random Fields: Final 
+  Report from the 2010 JHU Summer Workshop,&quot; <a href="docs/scarf2010report.pdf">MSR Technical Report MSR-TR-2010-173</a>
+<p> See <a href="docs/file.tbl">file.tbl</a> for a table listing all files on 
+  this disc. 
+<p>
+				Data files are contained in the
+				<a href="data/" style="text-decoration: none;">data</a> directory.
+			</p>
+		</p>
+Other documentation files are: 
+<ul>
+				<li>
+					<a href="docs/Readme">Readme</a>
+				</li>
+			</ul>
+			
+<h3> Updates </h3>
+		<p>
+			Additional information, updates, bug fixes may be available in the
+			LDC catalog entry for this corpus at
+			<a
+				href="http://www.ldc.upenn.edu/Catalog/CatalogEntry.jsp?catalogId=LDC2011T06">LDC2011T06</a>.
+			
+<h3> Content Copyright </h3>
+		
+<p> Portions &copy;1996-1998, 2000-2001 American Broadcasting Company, Inc., &copy; 
+  1996-1998, 2000-2001 Cable News Network LP, LLLP, &copy; 2000-2001 National 
+  Broadcasting Company, &copy; 1996-1998 National Public Radio, Inc., &copy; 1996-1998 
+  National Satellite Cable Corporation, &copy; 1996-1998, 2005, 2007, 2011 Trustees 
+  of the University of Pennsylvania 
+<p>The World is a co-production of Public Radio International and the British 
+  Broadcasting Corporation and is produced at WGBH Boston.
+<hr>
+			<font size="-1"> Contact: <a href="mailto:ldc@ldc.upenn.edu"
+				style="text-decoration: none;"> <b>ldc@ldc.upenn.edu</b> </a> <br>
+				&copy; 2011<a href="http://www.ldc.upenn.edu"
+				style="text-decoration: none;"> <b>Linguistic Data
+						Consortium</b> </a>, <a href="http://www.upenn.edu"
+				style="text-decoration: none;"> <b>Trustees of the
+						University of Pennsylvania</b> </a>. All Rights Reserved. </font>
+		</p>
+	</body>
+</html>
+

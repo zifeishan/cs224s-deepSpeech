@@ -4,9 +4,9 @@ if [ $# != 2 ]; then
 fi
 
 psql -c "
-  DROP TABLE IF EXISTS ngram_2_reduced CASCADE;
+  DROP TABLE IF EXISTS google_2gram_reduced CASCADE;
   
-  CREATE TABLE ngram_2_reduced(
+  CREATE TABLE google_2gram_reduced(
     id bigint,
     gram text,
     count real
@@ -14,5 +14,9 @@ psql -c "
 " $2
 
 psql -c "
-COPY ngram_2_reduced FROM STDIN;
+COPY google_2gram_reduced FROM STDIN;
 " $2 < $1
+
+psql -c "
+ANALYZE google_2gram_reduced;
+" $2

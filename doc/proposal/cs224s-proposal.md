@@ -1,5 +1,7 @@
-A Probabilistic Approach to Integrate Knowledge into Language Modeling in Speech Recognition
+Integrating Knowledge into Language Modeling in Speech Recognition with Probabilistic Models
 ====
+Zifei Shan, Tianxin Zhao, and Haowen Cao
+{zifei, tianxin, caohw}@stanford.edu
 
 Speech recognition has been suffering from bad independence assumptions
 across different phases. Acoustic models are trained without syntactic
@@ -19,7 +21,7 @@ second. Weaponed with this, we propose to use general factor graphs to
 do learning and inference on word lattices, integrating different kinds
 of knowledge including syntactic, semantic, context and higher-level
 knowledge. If time permits, we will try generating new candidates
-without the lattice, with the help of knowledge.
+outside the lattice, with the help of knowledge.
 
 Specifically, we aim to answer following questions:
 
@@ -52,7 +54,8 @@ knowledge that might help speech recognition:
 - High-level knowledge:
     - Topic-specific: weight words by topic
     - Speaker-specific: weight words by personal habit
-    - Context-specific: condition on social relationships, emotion, time, etc.
+    - Context-specific: condition on social relationships, emotion, 
+      time, etc.
 
 Experiments
 ----
@@ -87,7 +90,14 @@ In an error analysis, we have following interesting observations:
 With the insight from this relevant project, we propose to make use of
 corpus statistics and ASR-software specific knowledge in our ASR system.
 
+We will look into SCARF system and its applications meanwhile for comparison.
 
+Dataset
+----
+
+We will be starting with the broadcast word lattice dataset by JHU
+(LDC2011T06). We will continue looking for other word lattice datasets
+with different oracle error rates.
 
 
 
@@ -104,3 +114,4 @@ Other thoughts:
 
 - generating smart candidates
 
+- Google API, segmentation, rebuild by phones, supervised by ngrams

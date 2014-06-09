@@ -34,3 +34,7 @@
 build/
 *.pyc
 *.log
+speech-data/
+*-converted-to.pdf
+doc/final-report/cs224s-final-report.pdf
+doc/final-report/proposal.pdf

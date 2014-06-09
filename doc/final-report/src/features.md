@@ -10,19 +10,17 @@ After initial feature engineering, our current system implements following featu
 4. Candidates that overlap in time cannot be both true
 5. Candidates on a same path should be true at same time
 
-1. 
 
 
-features combination                             accuracy        
-------------------------------------------      -----------      
-google unigram frequency                             
-google bigram frequency  
+    features combination                             accuracy        
+    ------------------------------------------      -----------      
+    google unigram frequency                             
+    google bigram frequency  
 
 
-
-range(1,193) (without delta)                      41.82%       
-MFCC only                              48.48%       
-[7,10,174,183,186,190] (energy and f0 basics)    40.61%       
-max,min,amean,linregc1, stddev only          47.27%
-forward search (with 191 features)           49.10%                       
-forward search (with the top 165 features)       56.97%
+    range(1,193) (without delta)                      41.82%       
+    MFCC only                              48.48%       
+    [7,10,174,183,186,190] (energy and f0 basics)    40.61%       
+    max,min,amean,linregc1, stddev only          47.27%
+    forward search (with 191 features)           49.10%                       
+    forward search (with the top 165 features)       56.97%

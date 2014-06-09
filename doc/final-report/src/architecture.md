@@ -18,7 +18,7 @@ Architecture: See Figure \ref{fig:archi}.
 \end{figure*}
  -->
 
-\begin{figure}[t]
+\begin{figure}[b]
 \centering
 \includegraphics[width=0.45\textwidth]{img/deepspeech-archi.pdf}
 \caption{Architecture of DeepSpeech}

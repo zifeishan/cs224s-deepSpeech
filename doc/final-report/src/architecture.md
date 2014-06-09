@@ -57,14 +57,14 @@ This step is automatically performed by DeepDive on the generated factor graph. 
 
 ### Finding Best Path
 
-After inference, DeepSpeech performs a search for a best path that optimizes edit distance, with the algorithm discussed in Section \ref{sec:bestpath}. The system then outputs the best path it finds.
+After inference, DeepSpeech performs a search for a best path that optimizes the edit distance, with the algorithm discussed in Section \ref{sec:bestpath}. The system then outputs the best path it finds.
 
 
 
 
 ## DeepSpeech Features
 
-Our DeepSpeech system provides following benefits that benefits developers, compared to other systems like SCARF \cite{zweig2010scarf}.
+Our DeepSpeech system provides following benefits, compared to other systems like SCARF \cite{zweig2010scarf}.
 
 ### Easy Extraction and Integration of linguistic features
 
@@ -112,4 +112,4 @@ probability it predicts has the strict probabilistic meaning, which is
 "the likelihood of the word candidate to be in the actual word
 sequence". The probabilities are well-calibrated, which means that it
 is supported by data. With this probabilistic framework, finding the
-best-path (or N-best paths) are straightforward.
+best-path (or N-best paths) is straightforward.

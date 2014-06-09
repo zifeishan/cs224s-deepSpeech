@@ -2,13 +2,13 @@ NAME=DeepSpeech
 
 all: markdown pdf 
 
-markdown: abstract intro related model algo eval conc
+markdown: abstract introduction model features architecture experiments related conclusion
 
 abstract: src/abstract.md
 	pandoc src/abstract.md -o build/abstract.tex
 
-intro: src/intro.md
-	pandoc src/intro.md -o build/intro.tex
+introduction: src/introduction.md
+	pandoc src/introduction.md -o build/introduction.tex
 
 related: src/related.md 
 	pandoc src/related.md -o build/related.tex
@@ -16,14 +16,17 @@ related: src/related.md
 model: src/model.md
 	pandoc src/model.md -o build/model.tex
 
-algo: src/algo.md
-	pandoc src/algo.md -o build/algo.tex
+features: src/features.md
+	pandoc src/features.md -o build/features.tex
 
-eval: src/eval.md
-	pandoc src/eval.md -o build/eval.tex
+architecture: src/architecture.md
+	pandoc src/architecture.md -o build/architecture.tex
 
-conc: src/conc.md
-	pandoc src/conc.md -o build/conc.tex
+experiments: src/experiments.md
+	pandoc src/experiments.md -o build/experiments.tex
+
+conclusion: src/conclusion.md
+	pandoc src/conclusion.md -o build/conclusion.tex
 
 pdf: template/templateis13.tex
 	cp template/interspeech2013.sty ./

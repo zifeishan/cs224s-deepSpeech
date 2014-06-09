@@ -19,12 +19,13 @@ The oracle error rate (lattice optimal WER) is 2.1% on this dataset. Our baselin
 After initial feature engineering, we use following features: 
 
 1. The "confirmatory" decoding made with an independent speech recognizer
+
 2. Unigram and bigram frequency in Google Ngram: For each candidate word N-gram, we take its frequency (log-scale) in Google Ngram dataset as a feature that indicates whether it is a valid word / phrase. We skip disfluencies such as "um", "uh" and silence in this feature.
+
 3. Bag of word bigrams. Each bag of bigrams itself is a different feature (e.g. "we are", "but uh"). This is a very sparse feature, but with the large dataset and proper regularization, it performs well.
+
 4. All words around silence. We take the bigram of a word and a silence in speech, to capture what words are likely to come before or after a silence.
 
-
-**TODO cite: Google Ngram**
 
 ### Results
 
@@ -57,9 +58,9 @@ In this section, we enumerate a larger set of different features we implement in
 
 For dataset, we use a subsample of the broadcast lattice dataset. We only takes 1,000 lattices (speeches) and split them half-half for training and testing.
 
-## List of features
+### List of features
 
-Features we implement are listed below. Some are discussed in the above section while some are newly introduced.
+Features we implement are listed below. Some are discussed in the above section while some are newly introduced. Some of these features are also shown in Figure \ref{fig:fg}.
 
 1. (*unigram-freq*) Google unigram frequency
 
@@ -89,7 +90,7 @@ We increment features and observe impact for each feature.
 
 We start from unigram frequency, add bigram frequency and trigram frequency. Then we try using *only* "confirm" feature, add start-end feature onto it, add unigrams and bigrams, then add bigram-silence, bigram-stopword, and bigram-bag (features get more and more sparse). We further add conflict rule, add POS Ngram, at last add "chain" rule.
 
-## Experiment results
+### Experiment results
 
 We report the observed word error rate (WER) and sentence error rate (SER) in Figure \ref{fig:features}.
 

@@ -15,7 +15,7 @@ export PGUSER=zifei
 export PGPASSWORD=${PGPASSWORD:-}
 # export PGPORT=5432
 # export PGHOST=rocky
-export PGHOST=rambo
+export PGHOST=rambo.stanford.edu
 export PGPORT=5433
 # SBT Options
 export SBT_OPTS="-Xmx$MEMORY"

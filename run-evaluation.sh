@@ -17,7 +17,7 @@ fi
 
 cd $DEEPDIVE_HOME
 # $DEEPDIVE_HOME/sbt/sbt "run -c $APP_HOME/application.conf"
-deepdive -c $APP_HOME/evaluation.conf
+# deepdive -c $APP_HOME/evaluation.conf
 
 echo "deduplicating speaker meta..."
 psql -d $DBNAME -c "

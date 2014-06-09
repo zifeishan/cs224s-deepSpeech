@@ -44,7 +44,20 @@ The distant supervision method is demonstrated in Figure \ref{fig:supervision}. 
 
 As for the DP algorithm, for each candidate in the lattice, we store the maximum numbers of matches with the transcript *up to each position in the transcript*. Denoting the number of candidates in lattice as $N$ and number of words in transcript as $M$, then each candidate $i$ memorizes a vector with length $M$, denoted as $f[i][j]$. The DP function is as below:
 
-**TODO tianxin**: DP formula
+<!-- **TODO tianxin**: DP formula -->
+
+<!-- \begin{multline} -->
+\begin{align*} 
+\begin{equation}
+\begin{split}
+   f[i,j] =   \max\limits_{i' : i' is predecessor of i} &\{f[i', j-1] + 1\{lattice[i] = transcript[j]\} , \\
+   & f[i',j] ,\\
+   & f[i,j-1] \\
+   \}  
+\end{split}
+\end{equation}
+\end{align*}
+<!-- \end{multline} -->
 
 <!-- **TODO Cite SCLITE edit distance** -->
 

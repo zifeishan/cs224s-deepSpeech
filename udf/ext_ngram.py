@@ -111,7 +111,7 @@ def run(lattice_id, starts, ends, arr_feature, candidate_ids, gram_len):
       for j in index_start_sub[end + 1]:
         AddEdge(edges, candidate_ids[i], candidate_ids[j])
 
-
+  print edges
   ######## 2. DFS output candidates
   res_array = []
   for startid in sorted(edges.keys()):
@@ -138,19 +138,19 @@ if __name__ == '__main__':
   test(lattice_id, starts, ends, words, cids, 2)
   
 
-  starts = [1,     3,     6,    1,    4,     6    ]
-  ends =   [2,     5,     7,    3,    5,     7    ]
-  words =  ['not', 'tai', 'all','now','at','tao'  ]
-  cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
-  transcript = ['not',  'at',  'all']
-  test(lattice_id, starts, ends, words, cids, 2)
+  # starts = [1,     3,     6,    1,    4,     6    ]
+  # ends =   [2,     5,     7,    3,    5,     7    ]
+  # words =  ['not', 'tai', 'all','now','at','tao'  ]
+  # cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
+  # transcript = ['not',  'at',  'all']
+  # test(lattice_id, starts, ends, words, cids, 2)
   
 
-  starts = [1,     3,     5,    1,    4,     6    ]
-  ends =   [2,     4,     6,    3,    5,     7    ]
-  words =  ['not', 'tai', 'all','now','at','tao'  ]
-  cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
-  transcript = ['not',  'at',  'all']
-  test(lattice_id, starts, ends, words, cids, 2)
+  # starts = [1,     3,     5,    1,    4,     6    ]
+  # ends =   [2,     4,     6,    3,    5,     7    ]
+  # words =  ['not', 'tai', 'all','now','at','tao'  ]
+  # cids =   [1001,  1002,  1003, 1004, 1005,  1006 ]
+  # transcript = ['not',  'at',  'all']
+  # test(lattice_id, starts, ends, words, cids, 2)
 
   # Weird yield issue...

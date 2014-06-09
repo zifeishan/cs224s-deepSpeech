@@ -2,7 +2,7 @@ Architecture of DeepSpeech
 ====
 \label{sec:archi}
 
-We develop a end-to-end working system DeepSpeech which implements our data model. The system takes word lattice as input, performs user-defined feature extraction, factor graph generation, statistical learning and inference, and outputs the best path.
+We develop an end-to-end working system, DeepSpeech, which implements our data model. The system takes word lattice as input, performs user-defined feature extraction, factor graph generation, statistical learning and inference, and outputs the best path.
 
 *DeepSpeech* is based on *DeepDive* \cite{deepdive}, a scalable inference engine that facilitates feature extraction and generates factor graphs by a descriptive language. *DeepDive* has a high-throughput Gibbs sampler DimmWitted \cite{dimmwitted}, which learns and samples at a speed of about 10 million variables per second on a laptop for our task.
 
